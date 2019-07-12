@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -75,6 +76,26 @@
         <main class="py-4">
             @yield('content')
         </main>
+    </div>
+    <div class="content">
+    <div class="row">
+        <div class="col-md-4">
+        
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-dark">
+                    <div class="card-title"><h1 class="text-white">@yield('title')</h1></div>
+                </div>
+                <div class="card-body">
+                   @yield('body')
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+        
+        </div>
+    </div>
     </div>
 </body>
 </html>
