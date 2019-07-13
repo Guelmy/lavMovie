@@ -1,11 +1,13 @@
 @extends('layouts.app')
 
-    @section('body')
+ @section('body')
+ <button class="btn btn-primary rounded-circle"><a href="/favorite_movie/create" class="text-white">agregar</a></button>
+
         <div class="row">
-            @foreach($movies as $movie)
+            @foreach($fMovies as $movie)
                 <div class="col-md-3">
                     <div class="card" style="width: 15rem;; margin-top: 30px;">
-                            <img style="height: 14rem; width: 15rem;" class="card-img-top" src="images/{{ $movie->poster }}" alt="">
+                            <img style="height: 14rem; width: 15rem;" class="card-img-top" src="images/favorite/{{ $movie->poster }}" alt="">
                         <div class="card-body bg-dark" style="height: 60px;width: 100%" >
                             <div class="card-title"><h4 class="text-white">{{ $movie->title }}</h4></div>
                        </div>
@@ -14,7 +16,6 @@
                                 <br>Imdb: {{ $movie->imdb_number }}
                                 <br>Year: {{ $movie->year }}
                             </div>  
-                                
                         </div>
                     </div>
                 </div>

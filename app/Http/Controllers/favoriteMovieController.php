@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Movie;
-use App\favoriteMovie;
 
 use Illuminate\Http\Request;
+use App\favoriteMovie;
 
-class movieController extends Controller
+class FavoriteMovieController extends Controller
 {
     public function __construct(){
         $this->middleware('auth');
@@ -17,16 +16,10 @@ class movieController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {   // verifying role
-       if($request->user()->authorizeRole('admin')){
-             $movies = Movie::orderBy('id','ASC')->paginate(6);
-                  return view('movie.index')->with('movies', $movies);
-       }else if($request->user()->authorizeRole('client')){
-                // $fMovies = favoriteMovie::orderBy('created_at','ASC')->paginate(6);
-                    return redirect()->action('favoriteMovieController@index');
-       }  
+    {    
+            $fMovies = favoriteMovie::orderBy('created_at','ASC')->paginate(6);
 
-            
+                 return view('movie.favoriteMovie.index')->with('fMovies', $fMovies);
     }
 
     /**
@@ -36,7 +29,7 @@ class movieController extends Controller
      */
     public function create()
     {
-        return view("movie.upLoad");
+        return view('movie.favoriteMovie.upLoad');
     }
 
     /**
@@ -50,19 +43,20 @@ class movieController extends Controller
         if($request->hasFile('poster')){ //check if have file
             $file = $request->file('poster');
             $name = time().$file->getClientOriginalName(); //change name with time
-            $file->move(public_path().'/images/',$name); //move the file to public/image
-             
+            $file->move(public_path().'/images/favorite/',$name); //move the file to public/image
         }
-       
-        $movie = new movie;
+        // $user_id = $request->user()->id();
+        $movie = new favoriteMovie;
 
         $movie->title = $request->input('title');
         $movie->year = $request->input('year');
         $movie->imdb_number = $request->input('imdb_number');
         $movie->poster = $name;
+        $movie->user_id = 1;
+        $movie->role_id = 1;
         $movie->save();
 
-        return redirect()->action('movieController@index');
+        return redirect()->action('favoriteMovieController@index');
     }
 
     /**
@@ -71,11 +65,9 @@ class movieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($title)
-    {
-        $movies = Movie::find($title);
-
-        return view('movie.index', contact('movies'));
+    public function show($name)
+    {   
+        
     }
 
     /**

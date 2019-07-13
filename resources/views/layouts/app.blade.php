@@ -52,7 +52,7 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::user()->first_name }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -75,27 +75,8 @@
 
         <main class="py-4">
             @yield('content')
+            @yield('body')
         </main>
-    </div>
-    <div class="content">
-    <div class="row">
-        <div class="col-md-4">
-        
-        </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header bg-dark">
-                    <div class="card-title"><h1 class="text-white">@yield('title')</h1></div>
-                </div>
-                <div class="card-body">
-                   @yield('body')
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-        
-        </div>
-    </div>
     </div>
 </body>
 </html>

@@ -1,5 +1,7 @@
 @extends('layouts.movie')
 
-    @section('button')
-        <button type="submit" class="btn btn-primary">Upload</button>
-    @endsection
+    @section('url', '/movie')
+        
+        @section('button')
+            <button type="submit" class="btn btn-primary">Upload</button>
+        @endsection

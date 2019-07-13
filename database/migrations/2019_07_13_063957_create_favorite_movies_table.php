@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFavoriteMovie extends Migration
+class CreateFavoriteMoviesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class CreateFavoriteMovie extends Migration
      */
     public function up()
     {
-        Schema::create('favorite_movie', function (Blueprint $table) {
+        Schema::create('favorite_movies', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ class CreateFavoriteMovie extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('favorite_movie');
+        Schema::dropIfExists('favorite_movies');
     }
 }
