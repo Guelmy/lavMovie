@@ -3,17 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\favoriteMovie;
+use App\User;
 
 class UserController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+   }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if($request->user()->authorizeRole('admin')){
+            $users = User::orderBy('id','ASC')->paginate(6);
+                 return view('user.index')->with('users', $users);
+       }else if($request->user()->authorizeRole('client')){
+                    return redirect()->action('favoriteMovieController@index');
+       }  
     }
 
     /**
@@ -23,7 +33,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view("user.create");
     }
 
     /**

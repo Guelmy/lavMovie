@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class movieController extends Controller
 {
     public function __construct(){
-        $this->middleware('auth');
+         $this->middleware('auth');
     }
     /**
      * Display a listing of the resource.
@@ -18,13 +18,13 @@ class movieController extends Controller
      */
     public function index(Request $request)
     {   // verifying role
-       if($request->user()->authorizeRole('admin')){
+        if($request->user()->authorizeRole('admin')){
              $movies = Movie::orderBy('id','ASC')->paginate(6);
                   return view('movie.index')->with('movies', $movies);
-       }else if($request->user()->authorizeRole('client')){
-                // $fMovies = favoriteMovie::orderBy('created_at','ASC')->paginate(6);
-                    return redirect()->action('favoriteMovieController@index');
-       }  
+        }else if($request->user()->authorizeRole('client')){
+                 // $fMovies = favoriteMovie::orderBy('created_at','ASC')->paginate(6);
+                     return redirect()->action('favoriteMovieController@index');
+        }  
 
             
     }
@@ -35,13 +35,10 @@ class movieController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view("movie.upLoad");
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
+    {       return view("movie.upLoad");
+    }    /**
+     * Store a newly created resource in srage.
+    
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -71,11 +68,11 @@ class movieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($title)
+    public function show(Movie $movie)
     {
-        $movies = Movie::find($title);
+        // $movies = Movie::find($id);
 
-        return view('movie.index', contact('movies'));
+        return view('movie.index')->with('movies', $movie);
     }
 
     /**
@@ -110,5 +107,17 @@ class movieController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getAll(){
+        $movies = Movie::all();
+
+        return $movies;
+    }
+
+    public function getTO($imdb_number){
+        $movies = Movie::where('imdb_number',$imdb_number)->first();
+
+        return $movies;
     }
 }
