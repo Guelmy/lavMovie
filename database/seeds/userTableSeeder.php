@@ -30,8 +30,27 @@ class userTableSeeder extends Seeder
         $user = new User();
         $user->first_name = "David";
         $user->last_name = "Rodriguez";
-        $user->age = 21;
+        $user->age = 19;
         $user->email = "client@gmail.com";
+        $user->password = bcrypt('1234');
+        $user->save();
+        $user->roles()->attach($role_client);  //user client
+
+
+        $user = new User();
+        $user->first_name = "Rosi";
+        $user->last_name = "Martes";
+        $user->age = 22;
+        $user->email = "client2@gmail.com";
+        $user->password = bcrypt('1234');
+        $user->save();
+        $user->roles()->attach($role_client);  //user client
+
+        $user = new User();
+        $user->first_name = "Jose";
+        $user->last_name = "Santana";
+        $user->age = 20;
+        $user->email = "client3@gmail.com";
         $user->password = bcrypt('1234');
         $user->save();
         $user->roles()->attach($role_client);  //user client

@@ -18,8 +18,10 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        // dd();
+
         if($request->user()->authorizeRole('admin')){
-            $users = User::orderBy('id','ASC')->paginate(6);
+            $users = User::name($request->get('name'))->orderBy('id','ASC')->paginate(6);
                  return view('user.index')->with('users', $users);
        }else if($request->user()->authorizeRole('client')){
                     return redirect()->action('favoriteMovieController@index');

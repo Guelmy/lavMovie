@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Movie extends Model
 {
     public function users(){
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany(User::class, 'favorite_movie', 'user_id', 'movie_id');
     }
 }

@@ -1,7 +1,12 @@
 @extends('layouts.app')
-
    @section('body')
         <div class="row">
+            <form action="/user" method="GET" class="pull-right">
+                <div class="col-md-12">
+                    <input type="text" name="name" class="form-control" placeholder="First name" role="search"> 
+                    <button class="btn btn-primary" type="submit">Find</button>
+                </div>
+            </form>
             @foreach($users as $user)
                 <div class="col-md-3">
                     <div class="card" style="width: 15rem;; margin-top: 30px;">
@@ -14,11 +19,11 @@
                                     Age: {{ $user->age }}
                                 <br>Email: {{ $user->email }}
                             </div><br>  
-                              <button class="btn btn-primary"><a class="text-white" href="">show favorite movie</a></button>
+                              <button class="btn btn-primary" type="submit"><a class="text-white" href="/user/{{$user->id}}">show favorite movie</a></button>
                         </div>
                     </div>
                 </div>
             @endforeach
         </div>
     @endsection
-    <!-- #end -->
+    <!--#e-->

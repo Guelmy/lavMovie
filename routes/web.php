@@ -16,6 +16,15 @@ Route::get('/', 'movieController@index');
 //api vue
 Route::get('/api/movie', 'movieController@getAll');
 Route::get('/api/movie/{title}', 'movieController@getTo');
+//findUSer
+Route::get('/api/user', function(){
+    $user = App\User::findOrfail(1);
+
+    return $user->favorite_movie(1);
+
+  
+
+});
 
 Auth::routes();
 

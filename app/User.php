@@ -10,26 +10,35 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    public function roles(){
+    public function roles()
+    {
         return $this->belongsToMany('App\Role');
     }
 
-    public function favorite_movies(){
-        return $this->hasMany('App\favoriteMovie');
+    public function favorite_movie()
+    {
+        return $this->hasMany(Movie::class); //, 'favorite_movie', 'user_id', 'movie_id'
     }
 
-    public function authorizeRole($role){
+    public function authorizeRole($role)
+    {
         if($this->hasRole($role)){
             return true;
-        }
-        return false;
+        }return false;
     }
 
-    public function hasRole($role){
+    public function hasRole($role)
+    {
         if($this->roles()->where('name',$role)->first()){
             return true;
+        }else false;
+    }
+
+    public function scopeName($query, $name)
+    {
+        if(trim($name) != ""){
+            $query->where(\DB::raw("CONCAT(first_name, ' ', last_name)"), "like", "%$name%");
         }
-        else false;
     }
 
     /**
